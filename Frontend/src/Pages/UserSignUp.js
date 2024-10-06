@@ -9,6 +9,7 @@ import Button from "../components/UI/Button/Button";
 const UserSignUp = () => {
   const [error, setError] = useState({});
   const navigate = useNavigate();
+
   const userAlert = () => {
     Swal.fire({
       text: "Account created successfully",
@@ -26,11 +27,22 @@ const UserSignUp = () => {
         if (result.status === 200) {
           userAlert();
         } else {
-          navigate("");
+          // Handle unexpected response status
+          setError({ message: "Unexpected response status: " + result.status });
         }
       })
       .catch((error) => {
-        setError(error.response.data);
+        // Improved error handling
+        if (error.response) {
+          // If server responded with an error
+          setError(error.response.data);
+        } else if (error.request) {
+          // If request was made but no response received
+          setError({ message: "No response received from the server." });
+        } else {
+          // Something happened in setting up the request
+          setError({ message: error.message });
+        }
       });
   };
 
