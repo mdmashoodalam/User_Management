@@ -28,7 +28,16 @@ const UserLogin = () => {
         navigate("/user/dashboard");
       })
       .catch((error) => {
-        setError(error.response.data);
+        if (error.response) {
+          // Handle the case where the server responded with an error
+          setError(error.response.data);
+        } else if (error.request) {
+          // Handle the case where the request was made but no response was received
+          setError({ message: "No response received from the server." });
+        } else {
+          // Handle any other errors
+          setError({ message: error.message });
+        }
       });
   };
 
