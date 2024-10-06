@@ -8,7 +8,7 @@ require("./config/db");
 // Middleware to enable CORS (Cross-Origin Resource Sharing)
 app.use(
   cors({
-    origin: ["http://localhost:3000"], // Allow requests from this origin
+    origin: ["https://user-management-zo1r.onrender.com"], // Allow requests from this origin
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
     credentials: true, // Enable credentials for CORS
   })
